@@ -1,13 +1,21 @@
 const express = require("express");
+const helmet = require("helmet");
+const morgan = require("morgan");
+const cors = require("cors");
 require("dotenv").config();
 const app = express();
 const tasks = require("./routes/tasks");
 const connectDB = require("./db");
+
 // const connectDB = require("./db");
 
 // Middleware
 app.use(express.json());
 // app.use(express.urlencoded())
+app.use(helmet());
+app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
+app.use(morgan("common"));
+app.use(cors());
 
 // Routes
 app.get("/hello", (req, res) => {

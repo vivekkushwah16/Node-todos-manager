@@ -23,10 +23,13 @@ const createTask = async (req, res, next) => {
 const getTask = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const task = await Task.findById(id);
+    const task = await Task.findOne({ id });
+    if (!task) {
+      return res.status(404).json({ msg: `Task not found with ${id}` });
+    }
     res.status(200).json({ task });
   } catch (error) {
-    res.status(500).json({ msg: error });
+    res.status(404).json({ msg: error });
     console.log(error);
   }
 };
