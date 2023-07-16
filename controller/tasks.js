@@ -36,7 +36,7 @@ const getTask = async (req, res, next) => {
 const updateTask = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const task = await Task.findByIdAndUpdate(id, req.body);
+    const task = await Task.findByIdAndUpdate(id, req.body, { new: true });
     res.status(200).json({ task });
   } catch (error) {
     res.status(500).json({ msg: error });
